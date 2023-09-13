@@ -19,12 +19,16 @@ void delete_beginning();
 void delete_end();
 void delete_position(int);
 void display();
+void search_node(int);
+void modify_node(int , int);
+void count_node();
+void reverse_list();
 
 struct Node* head = NULL;
 
 int main() {
 	while(1) {
-		printf("\n[1] Insert data in the beginning\n[2] Insert data at the end\n[3] Insert data at position\n[4] Delete data from beginning\n[5] Delete data from end\n[6] Delete data from position\n[7] Print List\n[8] Exit\nEnter choice :  ");
+		printf("\n[1] Insert data in the beginning\n[2] Insert data at the end\n[3] Insert data at position\n[4] Delete data from beginning\n[5] Delete data from end\n[6] Delete data from position\n[7] Print List\n[8] Search for a node\n[9] Update node data\n[10] Find length of linked list\n[11] Reverse list\n[12] Exit\nEnter choice :  ");
 		int choice;
 		scanf("%d" , &choice);
 		clrscr();
@@ -32,20 +36,20 @@ int main() {
 
 		switch(choice) {
 			
-			case 1 : 
+			case 1 :
 				 printf("Enter data : ");
 				 scanf("%d" , &data);
 				 insert_beginning(data);
 				 break;
 
-			case 2 : 
+			case 2 :
 				 printf("Enter data : ");
 				 scanf("%d" , &data);
 				 insert_end(data);
 				 break;
 
-			case 3 : 
-				 if(head == NULL) {
+			case 3 :
+					 if(head == NULL) {
 					 printf("Linked List empty ... inserting in the beginning\nEnter data : ");
 					 scanf("%d" , &data);
 					 insert_beginning(data);
@@ -62,12 +66,12 @@ int main() {
 				 delete_beginning();
 				 break;
 
-			case 5 : 
+			case 5 :
 				 delete_end();
 				 break;
 
-			case 6 : 
-				 if(head == NULL){
+			case 6 :
+				 if(head == NULL) {
 					 printf("Linked List is empty !\n");
 				 }else{
 					 printf("Enter position : ");
@@ -76,13 +80,51 @@ int main() {
 				 }
 				 break;
 
-			case 7 : 
+			case 7 :
 				 display();
 				 break;
 
-			case 8 : 
-				 printf("Exitting ...");
-				 exit(0);
+			case 8 :
+					if(head == NULL) {
+						printf("Linked List is empty !\n");
+					  break;
+				  }
+				  printf("Enter search element : ");
+				  scanf("%d" , &data);
+				  search_node(data);
+				  break;
+
+			case 9 : 
+					if(head == NULL) {
+					  printf("Linked List is empty !\n");
+				  }else{
+					  printf("Enter position : ");
+					  scanf("%d" , &position);
+					  printf("Enter data : ");
+					  scanf("%d" , &data);
+					  modify_node(data , position);
+				  }
+				  break;
+
+			case 10 : 
+					if(head == NULL) {
+					  printf("Linked List is empty !\n");
+				  }else{
+					  count_node();
+				  }
+				  break;
+
+			case 11 : 
+					if(head == NULL) {
+					  printf("Linked List is empty !\n");
+				  }else{
+					  reverse_list();
+				  }
+				  break;
+
+			case 12 : 
+					printf("Exitting ...");
+				  exit(0);
 
 			default : printf("Wrong choice !");
 		}
@@ -151,7 +193,7 @@ void insert_position(int data , int position) {
 	}
 }
 
-void delete_beginning(){
+void delete_beginning() {
 	if(head == NULL) {
 		printf("Linked List is empty !\n");
 		return;
@@ -162,7 +204,7 @@ void delete_beginning(){
 	printf("Data deleted !\n");
 }
 
-void delete_end(){
+void delete_end() {
 	if(head == NULL) {
 		printf("Linked List is empty !\n");
 		return;
@@ -185,7 +227,7 @@ void delete_end(){
 
 }
 
-void delete_position(int position){
+void delete_position(int position) {
 	if(head == NULL) {
 		printf("Linked List is empty !\n");
 	}else{
@@ -227,5 +269,62 @@ void display() {
 		}
 		printf("NULL\n");
 	}
+}
+
+void search_node(int data) {
+	struct Node* current = head;
+	int index = 1;
+	while(current != NULL) {
+		if(current->data == data) {
+			printf("Data found at %d position !\n" , index);
+			break;
+		}
+		current = current->next;
+		index ++;
+	}
+	if(current == NULL) {
+		printf("Data not found !\n");
+	}
+}
+
+void modify_node(int data , int position) {
+	struct Node* current = head;
+	int index = 1;
+	while(index != position && current != NULL) {
+		index ++;
+		current = current->next;
+	}
+	if(current == NULL){
+		printf("Position doesn't exist !\n");
+		return;
+	}
+	current->data = data;
+	printf("Node modified !\n");
+}
+
+void count_node() {
+	struct Node* current = head;
+	int count = 0;
+	while(current != NULL) {
+		count ++;
+		current = current->next;
+	}
+	printf("%d nodes present in linked list !\n" , count);
+}
+
+void reverse_list() {
+	struct Node* prev = NULL;
+	struct Node* current = head;
+	struct Node* next = NULL;
+	
+	while(current != NULL) {
+		next = current->next;
+		current->next = prev;
+
+		prev = current;
+		current = next;
+	}
+	head = prev;
+	printf("List has been reversed !\n");
 }
 

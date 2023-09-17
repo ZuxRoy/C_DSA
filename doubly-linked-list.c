@@ -131,7 +131,8 @@ int main() {
                                  printf("Enter data to search : ");
                                  scanf("%d" , &data);
                                  if(head->next == NULL) {
-                                         if(head->data == data) {                                                puts("Data found at index 1\n");
+                                         if(head->data == data) {    
+					       puts("Data found at index 1\n");
                                                break;
                                          }else{
                                                 puts("Data not found !\n");

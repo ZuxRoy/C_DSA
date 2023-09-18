@@ -33,7 +33,6 @@ int main() {
 		scanf("%d" , &choice);	
 		clrscr();
 		switch(choice) {
-
 			case 1 : printf("Enter data : ");
 				 scanf("%d" , &data);
 				 insert_beginning(data);

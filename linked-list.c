@@ -35,7 +35,6 @@ int main() {
 		int data,position;
 
 		switch(choice) {
-			
 			case 1 : printf("Enter data : ");
 				 scanf("%d" , &data);
 				 insert_beginning(data);

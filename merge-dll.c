@@ -172,4 +172,3 @@ void traverse(struct Node** head) {
 		}
 	}
 }
-
